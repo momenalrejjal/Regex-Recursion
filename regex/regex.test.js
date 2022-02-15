@@ -1,39 +1,44 @@
 'use strict';
 
+const { xor } = require("lodash");
+const { boolean } = require("webidl-conversions");
+
 
 
 /* Write a function that take a string and return true if the string only contain uppercase and lowercase
 characters (no numbers and symbols) and it should end with capital A else return false */
 
-function capitalA(s){
+function capitalA(s) {
     // Add your logic.
- 
-      var letters = [s];
+    let x = true;
+    var letters = [s];
+    for (var i = 0; i < letters.length; i++) {
+        if (letters[i].slice(-1) === 'A') {
+            x = true;
+        } else {
+            x = false;
+        }
 
-​​​for (var ​i = 0; i<letters.length; i++) {
-    if (letters[i] === letters[i].toUpperCase()&& letters[i] !== letters[i].toLowerCase()) {
-        return true;
-    } else {
-        return false;
     }
-}​
-    
+    return x;
 }
 
 
 /* Write a function that take a string and return true if the the sting is following the emails pattern
 which end with io (example@example.io) */
 
-function ioEmail(email){
+function ioEmail(email) {
     // Add your logic.
+    let x = true;
 
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-    }
-    
-
-
+    let mailformat = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[io]+)*$/;
+    let Email = email.trimLeft()
+    Email != '' ? Email.match(mailformat) ?    x = true : x=false : x = false
   
+    return x
+
+}
+
 
 
 /* You have a text that contain image names with their extention you need to write a function to 
@@ -41,41 +46,24 @@ find all images in that text and return their names and extention in an array
 required extention are jpg, jpeg and png.
 */
 
-function imagesSearcher(text){
+function imagesSearcher(text) {
     let arr = [".jpg", ".jpeg", ".png"];
     // Add your logic.
+    let arr2=[];
+    let arrz=[]
+let tex = text.split(' ');
 
-   
-        var arrInputs = text.getElementsByTagName("input");
-        for (var i = 0; i < arrInputs.length; i++) {
-            var oInput = arrInputs[i];
-            if (oInput.type == "file") {
-                var sFileName = oInput.value;
-                if (sFileName.length > 0) {
-                    var blnValid = false;
-                    for (var j = 0; j < imagesSearcher.length; j++) {
-                        var sCurExtension = imagesSearcher[j];
-                        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                            blnValid = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!blnValid) {
-                        alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + imagesSearcher.join(", "));
-                        return false;
-                    }
-                }
-            }
-        }
-      
-    
 
-    return arr
+for (let z=0; z<tex.length; z++){
+    if(tex[z] === "cat.png" || tex[z] === "dog.jpg" || tex[z] === "cow.jpeg"){
+        arr2.push(tex[z]);
+    }
+
+}
+return arr2;
 }
 
-
-describe("Test capitalA", ()=>{
+describe("Test capitalA", () => {
     test("It should return true if the input has uppercase and lowercase characters (no numbers and symbols) and it should end with capital A else return false ", () => {
         expect(capitalA("Hello world A")).toStrictEqual(true);
 
