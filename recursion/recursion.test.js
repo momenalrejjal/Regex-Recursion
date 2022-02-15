@@ -1,13 +1,14 @@
 /* Write a function to do the division operation without using the built-in division*/
 
+//const { result } = require("lodash");
+
 function division(number, dividedBy){
     // Write you logic here.
-  
-    function division( number, dividedBy)
-    {if (number === 0)
+
+    if (number === 0)
             return 0;
         if (dividedBy === 0)
-            return Number.MAX_VALUE;;
+            return 0;;
         let negResult = false;
    
         if (number < 0)
@@ -17,11 +18,6 @@ function division(number, dividedBy){
             dividedBy = -dividedBy;
             else
                 negResult = true;
-        }
-        else if (dividedBy < 0)
-        {
-            dividedBy = -dividedBy;
-            negResult = true;
         }
       
         let quotient = 0;
@@ -34,8 +30,7 @@ function division(number, dividedBy){
         if (negResult)
             quotient = -quotient;
         return quotient;
-    }
-   
+    
     
 }
 /* Write a function that implement Math.pow(x,n) but using recursion
@@ -85,41 +80,43 @@ Example:
 Input: n = 3, k = 3
 Output: ["123", "132", "213", "231", "312", "321"] */
 
-function permutations(n,k){
-    let arr = [];
-    // Write you logic here. 
-
-    function Permutation(n, k) {
-     
-        var numberList = [];
-        for (var i = 1; i <= n; i++) {
-            numberList.push(i);
-        }
-        k--;
-        var mod = 1;
-        for (var i = 1; i <= n; i++) {
-            mod = mod * i;
-        }
-        var result = "";
+function permutations(n,k){   
+    // Write you logic here.
+let arr= [n];
+    let arr2=[n]
+        for (let i = 0; i < n; i++)
+            arr[i] = i + 1;
     
-        for(var i = 0; i < n; i++) {
-            mod = mod / (n - i);
-            
-            var curIndex = k / mod;
-            
-            k = k % mod;
-
-            result += numberList[curIndex];
-            
-            numberList.splice(curIndex,1);
+        let divisor = 1;
+        for (let place = 1; place <= n; place++)
+        {
+            if((k / divisor) === 0){
+            }
+            arr2[n-place] = (k / divisor) % place;
+            divisor *= place;
         }
     
-        return result;
+        console.log(arr2)
+    
+        for (let i = 0; i < n; i++)
+        {
+            let index = arr2[i] + i;
+    
+            if(index != i)
+            {
+                let temp = arr[index];
+                for(let j = index; j > i; j--)
+                   arr2[j] = arr2[j-1];
+                arr2[i] = temp;
+            }
+            console.log(arr)
+            
+
+        }
+        console.log(arr2)
+    return arr;
+        
     }
-
-    return arr
-}
-
 
 describe("Test division", () => {
     test("Return the division result", () => {
